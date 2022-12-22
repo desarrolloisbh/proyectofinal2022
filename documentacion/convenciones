@@ -1,0 +1,35 @@
+Los objetos dan resultados que se guardan en variables. 
+El resultado de los objetos pueden ser:
+    una tabla, cursor o lista que la llamaremos: Planilla 
+    un registro o linea que la llamaremos Registro
+    Cualquiera de estos nombres de variables los escribiremos con minúscula.
+
+    por ejemplo registro=Genero.objects.get(pk=xid)
+              o planilla = Genero.objects.all().order_by('descripcion')
+
+Para definir el nombre de la function "def " nombre de la accion + Nombre de la tabla
+
+Las funciones se nombran con la accion + el nombre de la tabla.
+comenzando con  minuscula y el nombre de la tabla comenzando con mayúscula
+por ejemplo consultarTabla1
+
+Para definir las clases utilizamos el nombre de la tabla comenzando com mayusculas.
+por ejemplo
+class Tipodoc(models.Model):
+
+    id=models.AutoField(
+        primary_key=True
+    )
+    descripcion=models.TextField(
+        max_length=45,
+        null=False,
+        blank=False)
+
+En los form utilizamos siempre el nombre de los campos
+class generoForm(forms.Form):
+    id = forms.CharField(widget = forms.HiddenInput())
+    descripcion= forms.CharField(
+        label='Género',
+    )
+ , y ese mismo nombre de campo lo utilizamos en la view 
+request.POST['descripcion'].

@@ -1,0 +1,62 @@
+# Ejemplo de view
+# ----------tabla----------
+def consultarTabla (request):
+    Carrera = Tabla.objects.all().order_by('nombredelcampo')
+    return render (request, "Tabla.html",{"tabla":Tabla})
+
+
+def tabla_crearformulario (request):
+    Formulario= tablaForm()
+    return render (request, 'agregarTabla.html', {'form':Formulario})
+def guardarTabla(request):
+    if request.method=='POST':
+        Nombre1=request.POST['nombre']
+    Carrera1=Tabla(campo=Nombre1)
+    Carrera1.save()
+    return render (request, 'inicio.html')
+
+# Ejemplo de URL
+# ----------tabla----------
+path('tabla/ConsultarTabla', gestion.consultarTabla, name='consultarTabla'),  
+path('tabla/crearTabla/', gestion.tabla_Crearformulario, name='crearTabla'),
+path('tabla/guardarTabla/', gestion.guardarTabla, name='guardarTabla'),
+# --------------------
+# Ejemplo de form 
+
+# ----------tabla----------
+class tablaForm(forms.Form):
+    nombre= forms.CharField(
+        label='Tabla',
+    )
+
+# Ejemplo de html - para consulta
+{% extends 'layout.html' %}
+{% block titulo %}
+Genero 
+{% endblock %}
+{% block contenido %}
+<a href="{% url 'nuevaCarrera'%}" class="btn btn-outline-primary">Agregar</a>
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Descripcion</th>
+    </tr>
+</thead>
+    {% for carrera in carreras %}
+    <tbody>
+    <tr>
+        <td>{{carrera.id}}</td>
+        <td>{{carrera.descripcion}}</td>
+    </tr>
+    </tbody>
+
+{% endfor %}
+</table>
+
+
+{% endblock %}
+
+
+
